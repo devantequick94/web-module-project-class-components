@@ -1,5 +1,18 @@
-import React from 'react'
-import TodoList from './TodoList';
+import React from 'react';
+import Todo from './Todo';
+
+class TodoList extends React.Component {
+  render() {
+
+    return(<ul>
+      {
+        this.props.todos.map(todo=> {
+          return (<Todo todo={todo} />)
+        })
+      }
+    </ul>);
+  }
+}
 
 class App extends React.Component {
   constructor() {
@@ -21,19 +34,20 @@ class App extends React.Component {
   }
   render() {
     const { todos } = this.state;
-    
-    return (
+    console.log(todos);
+
+    return(
       <div>
-       <h1>Todo App</h1>
+        <h1>Todos</h1>
+        
+        <TodoList todos={todos}/>
 
-       <TodoList todos={todos}/>
+        <form>
+          <input/>
+          <button>Add</button>
+        </form>
 
-       <form>
-         <input/>
-         <button>Add</button>
-       </form>
-
-       <button>Clear</button>
+        <button>Clear</button>
       </div>
     );
   }
