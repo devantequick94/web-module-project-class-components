@@ -21,6 +21,20 @@ class App extends React.Component {
     }
   }
 
+handleAdd = (name) => {
+  
+  const newTodo = {
+    name: name,
+    id: Date.now(),
+    completed: false
+  };
+  
+  this.setState({
+    ...this.state,
+    todos: [...this.state.todos, newTodo]
+  });
+}
+
 handleClear = () => {
 
 this.setState({
@@ -32,6 +46,22 @@ this.setState({
 
 }
 
+handleToggle = (clickedId) => {
+  
+  this.setState({
+    ...this.state,
+    todos: this.state.todos.map(todo=> {
+      if (todo.id === clickedId) {
+        return {
+          ...todo,
+        completed: !todo.completed
+        }
+      } 
+        return todo;
+    })
+  });
+}
+
   render() {
     const { todos } = this.state;
     console.log(todos);
@@ -40,8 +70,8 @@ this.setState({
       <div>
         <h1>Todos</h1>
         
-        <TodoList todos={todos}/>
-        <Form />
+        <TodoList handleToggle={this.handleToggle} todos={todos}/>
+        <Form handleAdd={this.handleAdd}/>
         <button onClick={this.handleClear}>Clear</button>
       </div>
     );
